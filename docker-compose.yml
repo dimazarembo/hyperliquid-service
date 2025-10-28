@@ -1,0 +1,16 @@
+version: '3.9'
+
+services:
+  hyperliquid-service:
+    image: "hyperliquid-service:dev"
+    container_name: hyperliquid-service
+    ports:
+      - "8085:8085"
+    environment:
+      SERVER_PORT: 8085
+    restart: always
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8085/actuator/health"]
+      interval: 20s
+      timeout: 5s
+      retries: 5
